@@ -1,29 +1,53 @@
 
 public class CellTower {
 
-	private int distance; 
-	private int id; 
-	private String cityName;
-	
-	
-	public CellTower(int distance, int id, String city) {
-		this.distance=distance; 
-		this.id=id;
-		this.cityName=city;
+	private String cellCityName;
+
+	public CellTower() {
+		cellCityName = null;
 	}
-	
-	public int getDistance() {
-		return distance;
+
+	CellTower(String c1) {
+		cellCityName = c1;
 	}
-	public int getId() {
-		return id;
+
+	public String getCellCityName() {
+		return cellCityName;
 	}
-	public String getCityName() {
-		return cityName;
+
+	public void setCellCityName(String cellCityName) {
+		this.cellCityName = cellCityName;
 	}
+
 	public String toString() {
-		return "CellTowerID#"+getId()+","+getDistance()+","+getCityName();
-		
+		return cellCityName;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cellCityName == null) ? 0 : cellCityName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CellTower other = (CellTower) obj;
+		if (cellCityName == null) {
+			if (other.cellCityName != null)
+				return false;
+		} else if (!cellCityName.equals(other.cellCityName))
+			return false;
+		return true;
 	}
 	
+	
+
 }

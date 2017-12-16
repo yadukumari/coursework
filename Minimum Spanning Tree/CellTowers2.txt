@@ -1,0 +1,10 @@
+Gilroy SanJose 18
+SanJose Fremont 20
+Milpitas Gilroy 27
+Fremont Oakland 17
+Oakland Milpitas 22 
+SanFrancisco Cupertino 43 
+LosGatos LosAltos 14
+LosAltos ScottsValley 23 
+Newark SanMateo 27
+SanMateo Hayward 15

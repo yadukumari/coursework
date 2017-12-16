@@ -1,0 +1,12 @@
+DalyCity Richmod 38.8
+RedWoodCity DalyCity 45.4
+Richmod WalnutGreek 32.0
+Milpitas walnutGreek 34.3
+Milpitas SanJose 25.3
+RedWoodCity Milpitas 30.2
+RedWoodCity PaloAlto 35.9
+PaloAlto MountainView 20.9
+MountainView RedWoodCity 30.0
+SunnyVal MountainView 29.54
+SanJose  SunnyVal 40.0
+Cupertino SunnyVal 20.98

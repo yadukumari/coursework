@@ -1,4 +1,5 @@
 
+import java.io.PrintStream;
 import java.util.*;
 import java.util.Map.Entry;
 interface Visitor<T>
@@ -22,15 +23,25 @@ class Vertex<E>
       data = x;
    }
 
-   public Vertex() { this(null); }
+   public Vertex() { 
+	   this(null); 
+	   }
 
-   public E getData(){ return data; }
+   public E getData(){ 
+	   return data; 
+	   }
 
-   public boolean isVisited(){ return visited; }
+   public boolean isVisited(){
+	   return visited;
+	   }
 
-   public void visit(){ visited = true; }
+   public void visit(){ 
+	   visited = true; 
+	   }
 
-   public void unvisit(){ visited = false; }
+   public void unvisit(){ 
+	   visited = false; 
+	   }
 
    public Iterator<Map.Entry<E, Pair<Vertex<E>, Double>>> iterator()
    {
@@ -39,9 +50,11 @@ class Vertex<E>
 
    public void addToAdjList(Vertex<E> neighbor, double cost)
    {
-	   if( adjList.get(neighbor.data) == null)
+	   if( adjList.get(neighbor.data) == null){   
 		   adjList.put(neighbor.data, new Pair<Vertex<E>, Double> (neighbor, cost) );
 	   // Note: if you want to change the cost, you'll need to remove it and then add it back
+   
+	   }
    }
 
    public void addToAdjList(Vertex<E> neighbor, int cost)
@@ -107,7 +120,7 @@ public class Graph<E>
 
       // add dest to source's adjacency list
       src.addToAdjList(dst, cost);
-      //dst.addToAdjList(src, cost); // ADD THIS IF UNDIRECTED GRAPH
+      dst.addToAdjList(src, cost); // ADD THIS IF UNDIRECTED GRAPH
    }
 
    public void addEdge(E source, E dest, int cost)
@@ -146,14 +159,14 @@ public class Graph<E>
 		   Pair<Vertex<E>, Double> endPair = startVertex.adjList.remove(end);
 		   removedOK = endPair!=null;
 	   }
-	   /*// Add if UNDIRECTED GRAPH:
+	   // Add if UNDIRECTED GRAPH:
 		Vertex<E> endVertex = vertexSet.get(end);
 		if( endVertex != null )
 		{
 			Pair<Vertex<E>, Double> startPair = endVertex.adjList.remove(start);
 			removedOK = startPair!=null ;
 		}
-		*/
+		
 
 	   return removedOK;
    }
@@ -239,6 +252,18 @@ public class Graph<E>
    public void depthFirstTraversalHelper(Vertex<E> startVertex, Visitor<E> visitor)
    {
         // YOU COMPLETE THIS (USE THE RECURSIVE ALGORITHM GIVEN FOR LESSON 11 EXERCISE)
+	   startVertex.visit();
+       visitor.visit(startVertex.getData());
+       
+       Iterator<Map.Entry<E, Pair<Vertex<E>, Double>>> iter =
+               startVertex.iterator();
+       
+       while (iter.hasNext()) {
+           Vertex<E> vert = iter.next().getValue().first;
+           if (!vert.isVisited()) {
+               depthFirstTraversalHelper(vert, visitor);
+           }
+       }
    }
 
 
@@ -246,6 +271,35 @@ public class Graph<E>
    //         WRITE THE GRAPH's vertices and its
    //         adjacency list TO A TEXT FILE (SUGGEST TO PASS AN
    //        ALREADY OPEN PrintWriter TO THIS) !
-
+   
+   public  void writeToFile(PrintStream write) {
+       Iterator<Entry<E, Vertex<E>>> graphIter;
+       
+          graphIter = vertexSet.entrySet().iterator();
+          
+          Vertex vert;
+          
+          Iterator<Entry<E, Pair<Vertex<E>, Double>>> vertIter;
+          Entry<E, Pair<Vertex<E>, Double>> entry;
+          Pair<Vertex<E>, Double> pair;
+          
+          while( graphIter.hasNext() ) {
+              vert = graphIter.next().getValue();
+              write.print( vert.getData() + ": ");
+              vertIter = vert.adjList.entrySet().iterator();
+              
+              while( vertIter.hasNext() ) {
+                 entry = vertIter.next();
+                 pair = entry.getValue();
+                 write.print( pair.first.data + "("
+                    + String.format("%3.1f", pair.second)
+                    + ")" );
+                 
+                 if (vertIter.hasNext())
+                     write.print(" -> ");
+              }
+              write.println();
+          }
+   }
 
 }

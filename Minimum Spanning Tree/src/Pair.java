@@ -6,7 +6,10 @@ public class Pair<E, F>
    public E first;
    public F second;
    
-   public Pair(E x, F y) { first = x; second = y; }
+   public Pair(E x, F y) { 
+	   first = x; 
+	   second = y; 
+	   }
    
    public boolean equals(Object rhs)
    {
